@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Energy Auction/1.0.0": {
+        "dependencies": {
+          "ActressMas": "1.0.0"
+        },
+        "runtime": {
+          "Energy Auction.dll": {}
+        }
+      },
+      "ActressMas/1.0.0": {
+        "runtime": {
+          "ActressMas.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Energy Auction/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ActressMas/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

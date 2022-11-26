@@ -1,0 +1,20 @@
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\bin\Debug\net6.0\Energy Auction.exe
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\bin\Debug\net6.0\Energy Auction.deps.json
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\bin\Debug\net6.0\Energy Auction.runtimeconfig.json
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\bin\Debug\net6.0\Energy Auction.dll
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\bin\Debug\net6.0\Energy Auction.pdb
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\bin\Debug\net6.0\ActressMas.dll
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\bin\Debug\net6.0\ActressMas.pdb
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\bin\Debug\net6.0\ActressMas.xml
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\bin\Debug\net6.0\ActressMas.dll.config
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\Energy Auction.csproj.AssemblyReference.cache
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\Energy Auction.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\Energy Auction.AssemblyInfoInputs.cache
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\Energy Auction.AssemblyInfo.cs
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\Energy Auction.csproj.CoreCompileInputs.cache
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\Energy Auction.csproj.CopyComplete
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\Energy Auction.dll
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\refint\Energy Auction.dll
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\Energy Auction.pdb
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\Energy Auction.genruntimeconfig.cache
+C:\Users\lukes\RiderProjects\Energy Auctions\Energy Auction\obj\Debug\net6.0\ref\Energy Auction.dll
