@@ -40,6 +40,11 @@ class EnvironmentAgent : Agent
                 Send(senderID, content); //send the message with this information back to the household agent that requested it
                 break;
 
+            case "stop":
+                Console.WriteLine("End of session");
+                Stop();
+                break;
+                
             default:
                 break;
         }

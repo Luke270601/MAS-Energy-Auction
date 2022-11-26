@@ -13,6 +13,7 @@ public class HouseAgent : Agent
     private Boolean _wantToSell;
     private int _currentPrice;
     private int _currentBid;
+    private int _stillBuySell = Settings.NoBidders;
     public override void Setup()
     {
         Send("environment","start");
@@ -49,11 +50,23 @@ public class HouseAgent : Agent
                         break;
                     
                     case "gain":
-                        _generation += 1;
+                        _generation++;
+                        Console.WriteLine(this.Name + " has a demand of: " + _demand + " and " + "generation of: " + _generation);
+                        break;
+                    
+                    case "reduce":
+                        _generation--;
+                        Console.WriteLine(this.Name + " has a demand of: " + _demand + " and " + "generation of: " + _generation);
                         break;
 
-                    case "reduce":
-                        _generation -= 1;
+                    case "sellToUtility":
+                        _generation -= (_generation - _demand);
+                        HandleBuyOrSell(_demand, _generation, _valuation);
+                        break;
+                    
+                    case "buyFromUtility":
+                        _demand -= (_demand - _generation);
+                        HandleBuyOrSell(_demand, _generation, _valuation);
                         break;
                     
                     default:
@@ -82,8 +95,12 @@ public class HouseAgent : Agent
 
         else
         {
-            Console.WriteLine();
             Stop();
+            _stillBuySell--;
+            if (_stillBuySell == Settings.NoBidders)
+            {
+                Send("auctioneer", "stop");
+            }
         }
     }
     

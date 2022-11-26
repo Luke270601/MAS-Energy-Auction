@@ -52,10 +52,10 @@ namespace EnergyAuction
         private Sell seller = new Sell();
         private int decreases = 0;
         private int _turnsToWait;
-        private int bidlimit = 0;
         private int _startingPrice;
         private int _noSold = 0;
-
+        private int noBidders = 0;
+        private bool sellerBuyerAdded = false;
         public AuctioneerAgent()
         {
             sellers = new List<Sell>();
@@ -71,46 +71,102 @@ namespace EnergyAuction
 
         public override void Act(Message message)
         {
-            if (sellers.Count + 1 > 0) 
-                try
+            try
+            {
+                message.Parse(out string action, out string parameters);
+                switch (action)
                 {
-                    Console.WriteLine($"\t{message.Format()}");
-                    message.Parse(out string action, out string parameters);
-                    switch (action)
-                    {
-                        case "sell":
-                            HandleSeller(message.Sender, Convert.ToInt32(parameters));
-                            break;
-                    
-                        case "buy":
-                            HandleBuyer(message.Sender);
-                            break;
-                        
-                        case "bid":
-                            bidlimit++;
+                    case "sell":
+                        Console.WriteLine($"\t{message.Format()}");
+                        HandleSeller(message.Sender, Convert.ToInt32(parameters));
+                        break;
+
+                    case "buy":
+                        Console.WriteLine($"\t{message.Format()}");
+                        HandleBuyer(message.Sender);
+                        break;
+
+                    case "bid":
+                        if (sellerBuyerAdded){
+                            Console.WriteLine($"\t{message.Format()}");
                             HandleBid(message.Sender, Convert.ToInt32(parameters));
-                            bidlimit = 0;
-                            break;
-                        
-                        case "wait":
+                        }
+                        break;
+
+                    case "wait":
+                        if (sellerBuyerAdded)
+                        {
+                            Console.WriteLine($"\t{message.Format()}");
                             decreases++;
                             HandleDecrease(message.Sender);
-                            break; 
+                        }
 
-                        default:
-                            break;
-                    }
+                        break;
+                    
+                    case "noBuyerOrSellers":
+                        Stop();
+                        Console.WriteLine("No sellers or buyers");
+                        Send("environment", "stop");
+                        break;
+
+                    default:
+                        break;
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
-        
+
+
+        public override void ActDefault()
+        {
+            if (sellerBuyerAdded)
+            {
+                if (sellers.Count > 0 && buyers.Count == 0)
+                {
+                    Console.WriteLine("        No buyers, sell to utilities");
+                    foreach (var varSeller in sellers)
+                    { Send(varSeller.Seller, "sellToUtility");
+                    }
+                    
+                    foreach (var varBuyer in buyers)
+                    {
+                        if (buyers.Count < sellers.Count)
+                        {
+                            Send(varBuyer.Buyer, "buyFromUtility");
+                        }
+                    }
+
+                    Send("environment", "stop");
+                    Stop();
+                }
+
+                if (buyers.Count >= 0 && sellers.Count == 0)
+                {                    
+                    Console.WriteLine("        No sellers, buy from utilities");
+                    foreach (var varBuyer in buyers)
+                    {
+                        Send(varBuyer.Buyer, "buyFromUtility");
+                    }
+                    Send("environment", "stop");
+                    Stop();
+                }
+            }
+
+            if (buyers.Count > 0 && sellers.Count > 0){
+                foreach (var varBuyer in buyers)
+                {
+                    _startingPrice = sellers[0].SaleValue;
+                    Send(varBuyer.Buyer, $"price {_startingPrice}");
+                }
+            }
+        }
 
         private void HandleDecrease(string sender)
         {
-            if (decreases == buyers.Count)
+            if (decreases >= buyers.Count)
             {
                 _startingPrice -= Settings.Increment;
                 foreach (var variableBuyer in buyers)
@@ -132,21 +188,21 @@ namespace EnergyAuction
         private void HandleSeller(string sender, int price)
         {
             sellers.Add(new Sell(sender, price));
+            sellerBuyerAdded = true;
         }
         
         private void HandleBuyer(string sender)
         {
+            buyers.Add(new Buy(sender, 0));
+            sellerBuyerAdded = true;
             if (sellers.Count > 0)
             {
                 _startingPrice = sellers[0].SaleValue;
-                buyers.Add(new Buy(sender, 0));
-                Send(sender, $"price {_startingPrice}");
-            }
-
-            else
-            {
-                Console.WriteLine("No sellers, delaying...");
-                Send(sender, "delay");
+                while (noBidders < buyers.Count)
+                {
+                    Send(buyers[noBidders].Buyer, $"price {_startingPrice}");
+                    noBidders++;
+                }
             }
         }
 
@@ -163,10 +219,11 @@ namespace EnergyAuction
             {
                 Console.WriteLine($"[auctioneer]: {sellers[0].Seller} auction finished. Sold to {buyer.Buyer} for price {buyer.BuyValue}.");
                 Send(sellers[0].Seller, "reduce");
-                Send(buyer.Buyer, "gain");
                 sellers.Clear();
+                Send(buyer.Buyer, "gain");
                 buyers.Clear();
                 Broadcast("delay");
+                sellerBuyerAdded = false;
             }
         }
     }
