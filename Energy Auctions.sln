@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Energy Auction", "Energy Auction\Energy Auction.csproj", "{9A2AA70C-991A-4E96-8FE2-1F38EF0A7300}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dutch Energy Auction", "Dutch Energy Auction\Dutch Energy Auction.csproj", "{9A2AA70C-991A-4E96-8FE2-1F38EF0A7300}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ActressMas Framework", "ActressMas Framework", "{CCAD7B2F-6915-4963-A86C-68AB08705B4F}"
 EndProject
